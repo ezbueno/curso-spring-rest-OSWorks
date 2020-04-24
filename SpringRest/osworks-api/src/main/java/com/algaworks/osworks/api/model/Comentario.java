@@ -1,36 +1,27 @@
-package com.algaworks.osworks.domain.model;
+package com.algaworks.osworks.api.model;
 
-import javax.persistence.Column;
+import java.time.OffsetDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.persistence.ManyToOne;
+
+import com.algaworks.osworks.domain.model.OrdemServico;
 
 @Entity
-public class Cliente {
+public class Comentario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	@Size(max = 60)
-	@Column(name="nome")
-	private String nome;
+	@ManyToOne
+	private OrdemServico ordemServico;
 	
-	@NotBlank
-	@Email
-	@Size(max = 255)
-	@Column(name="email")
-	private String email;
-	
-	@NotBlank
-	@Size(max = 20)
-	@Column(name="telefone")
-	private String telefone;
+	private String descricao;
+	private OffsetDateTime dataEnvio;
 	
 	public Long getId() {
 		return id;
@@ -38,23 +29,23 @@ public class Cliente {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public OrdemServico getOrdemServico() {
+		return ordemServico;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setOrdemServico(OrdemServico ordemServico) {
+		this.ordemServico = ordemServico;
 	}
-	public String getEmail() {
-		return email;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
-	public String getTelefone() {
-		return telefone;
+	public OffsetDateTime getDataEnvio() {
+		return dataEnvio;
 	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setDataEnvio(OffsetDateTime dataEnvio) {
+		this.dataEnvio = dataEnvio;
 	}
 	@Override
 	public int hashCode() {
@@ -71,7 +62,7 @@ public class Cliente {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Comentario other = (Comentario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
